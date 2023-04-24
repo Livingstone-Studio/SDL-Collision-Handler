@@ -17,6 +17,7 @@ public:
 	/// The shape of the collider. (RECT = Rectangle, CIRCLE = Circle)
 	/// </summary>
 	enum ColliderShape { RECT, CIRCLE };
+
 	/// <summary>
 	/// The constructor for the base collider class.
 	/// </summary>
@@ -29,11 +30,7 @@ public:
 	/// The destructor for the base collider class.
 	/// </summary>
 	~Collider();
-	/// <summary>
-	/// The function that checks all other colliders against this collider. USED INTERNALLY IN THE COLLISION SYSTEM.
-	/// </summary>
-	/// <param name="colliders">All the other registered colliders.</param>
-	void CheckCollision(std::vector<Collider*> colliders);
+
 	/// <summary>
 	/// Sets the function to be executed on a collision detection from this collider.
 	/// </summary>
@@ -45,15 +42,16 @@ public:
 	/// <param name="x">The new position on the X axis.</param>
 	void SetX(float x);
 	/// <summary>
-	/// Gets the current X position.
-	/// </summary>
-	/// <returns>The colliders X position.</returns>
-	float GetX();
-	/// <summary>
 	/// Sets the new position on the Y axis.
 	/// </summary>
 	/// <param name="x">The new position on the Y axis.</param>
 	void SetY(float y);
+
+	/// <summary>
+	/// Gets the current X position.
+	/// </summary>
+	/// <returns>The colliders X position.</returns>
+	float GetX();
 	/// <summary>
 	/// Gets the current Y position.
 	/// </summary>
@@ -64,18 +62,25 @@ public:
 	/// </summary>
 	/// <returns>The colliders shape.</returns>
 	ColliderShape GetShape();
-	
-protected:
+
 	/// <summary>
-	/// The function that checks if there's a collision event function and executes it if it exists. USED INTERNALLY IN THE COLLISION SYSTEM.
+	/// The function that checks all other colliders against this collider. USED INTERNALLY IN THE COLLISION SYSTEM.
 	/// </summary>
-	void OnCollision();
+	/// <param name="colliders">All the other registered colliders.</param>
+	void CheckCollision(std::vector<Collider*> colliders);
+
+protected:
 	/// <summary>
 	/// Checks this collider against another collider dependant on shape. USED INTERNALLY IN THE COLLISION SYSTEM.
 	/// </summary>
 	/// <param name="collider">The other collider being checked against.</param>
 	/// <returns>Whether a collision has been identified or not.</returns>
 	bool IsCollided(Collider* collider);
+	/// <summary>
+	/// The function that checks if there's a collision event function and executes it if it exists. USED INTERNALLY IN THE COLLISION SYSTEM.
+	/// </summary>
+	void OnCollision();
+
 	/// <summary>
 	/// The method of checking this collider against an AABB collider rectangle.
 	/// </summary>

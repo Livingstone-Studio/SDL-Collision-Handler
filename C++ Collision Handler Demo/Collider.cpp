@@ -16,20 +16,6 @@ Collider::~Collider()
 	CollisionHandler::Remove(this);
 }
 
-void Collider::CheckCollision(std::vector<Collider*> colliders)
-{
-	for (Collider* collider : colliders)
-	{
-		if (collider && collider != this) 
-		{
-			if (IsCollided(collider))
-			{
-				OnCollision();
-			}
-		}
-	}
-}
-
 void Collider::SetCollisionEvent(std::function<void()> collisionEvent)
 {
 	m_collision_event = collisionEvent;
@@ -60,9 +46,18 @@ Collider::ColliderShape Collider::GetShape()
 	return m_shape;
 }
 
-void Collider::OnCollision()
+void Collider::CheckCollision(std::vector<Collider*> colliders)
 {
-	if (m_collision_event) m_collision_event();
+	for (Collider* collider : colliders)
+	{
+		if (collider && collider != this)
+		{
+			if (IsCollided(collider))
+			{
+				OnCollision();
+			}
+		}
+	}
 }
 
 bool Collider::IsCollided(Collider* collider)
@@ -78,4 +73,9 @@ bool Collider::IsCollided(Collider* collider)
 	}
 
 	return false;
+}
+
+void Collider::OnCollision()
+{
+	if (m_collision_event) m_collision_event();
 }

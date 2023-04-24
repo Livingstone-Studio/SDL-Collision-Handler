@@ -17,14 +17,14 @@ void RectangleCollider::SetW(float w)
     m_size[0] = w;
 }
 
-float RectangleCollider::GetW()
-{
-    return m_size[0];
-}
-
 void RectangleCollider::SetH(float h)
 {
     m_size[1] = h;
+}
+
+float RectangleCollider::GetW()
+{
+    return m_size[0];
 }
 
 float RectangleCollider::GetH()

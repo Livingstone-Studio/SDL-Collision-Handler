@@ -45,6 +45,7 @@ protected:
 	/// <param name="collider">The other circle collider being checked against.</param>
 	/// <returns>Whether a collision has been identifed or not.</returns>
 	virtual bool CircleCheck(CircleCollider* collider) override;
+
 	/// <summary>
 	/// Finds the magnitude of x and y.
 	/// </summary>

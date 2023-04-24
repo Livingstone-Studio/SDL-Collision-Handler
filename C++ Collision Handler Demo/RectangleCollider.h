@@ -29,15 +29,16 @@ public:
 	/// <param name="w">The new width for the rectangle.</param>
 	void SetW(float w);
 	/// <summary>
-	/// Gets the current width.
-	/// </summary>
-	/// <returns>The colliders width.</returns>
-	float GetW();
-	/// <summary>
 	/// Sets a new height size for the rectangle collider.
 	/// </summary>
 	/// <param name="h">The new height for the rectangle.</param>
 	void SetH(float h);
+
+	/// <summary>
+	/// Gets the current width.
+	/// </summary>
+	/// <returns>The colliders width.</returns>
+	float GetW();
 	/// <summary>
 	/// Gets the current height.
 	/// </summary>

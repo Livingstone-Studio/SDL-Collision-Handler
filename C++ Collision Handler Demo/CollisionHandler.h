@@ -13,6 +13,15 @@ class CollisionHandler
 {
 public:
 	/// <summary>
+	/// Runs the frame check required to detect and respond to collisions.	
+	/// </summary>
+	static void Update();
+	/// <summary>
+	/// Deletes all the colliders in the collision system.
+	/// </summary>
+	static void Cleanup();
+
+	/// <summary>
 	/// Adds the collider into the collision system. Automatically called on creation of a collider.
 	/// </summary>
 	/// <param name="collider">The collider to be added.</param>
@@ -22,14 +31,6 @@ public:
 	/// </summary>
 	/// <param name="collider">The collider to be removed.</param>
 	static void Remove(Collider* collider);
-	/// <summary>
-	/// Runs the frame check required to detect and respond to collisions.	
-	/// </summary>
-	static void Update();
-	/// <summary>
-	/// Deletes all the colliders in the collision system.
-	/// </summary>
-	static void Cleanup();
 
 private:
 	/// <summary>
