@@ -1,5 +1,5 @@
 #include "CircleCollider.h"
-#include "SquareCollider.h"
+#include "RectangleCollider.h"
 
 #include <iostream>
 
@@ -12,19 +12,29 @@ CircleCollider::~CircleCollider()
 {
 }
 
+void CircleCollider::SetRadius(float r)
+{
+    m_radius = r;
+}
+
 float CircleCollider::GetRadius()
 {
     return m_radius;
 }
 
-bool CircleCollider::SquareCheck(SquareCollider* collider)
+bool CircleCollider::RectangleCheck(RectangleCollider* collider)
 {
     if (!collider) return false;
 
     float o_pos[2] = { collider->GetX(), collider->GetY() };
     float o_size[2] = { collider->GetW(), collider->GetH() };
 
-    float axis_distance[2] = { abs(m_position[0] - o_pos[0]),abs(m_position[1] - o_pos[1]) };
+    float axis_distance[2] = { abs(o_pos[0] - m_position[0]),abs(o_pos[1] - m_position[1]) };
+
+
+    float corner_distance_sq = pow(axis_distance[0] - collider->GetW() / 2, 2) + pow(axis_distance[1] - collider->GetH() / 2, 2);
+    if (corner_distance_sq <= pow(GetRadius(), 2)) { return true; }
+
 
     if (axis_distance[0] > (o_size[0] / 2 + m_radius)) { return false; }
     if (axis_distance[1] > (o_size[1] / 2 + m_radius)) { return false; }

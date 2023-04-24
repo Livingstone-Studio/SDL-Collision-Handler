@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-std::vector<Collider*> CollisionHandler::m_colliders{ nullptr };
+std::vector<Collider*> CollisionHandler::m_colliders;
 
 void CollisionHandler::Add(Collider* collider)
 {
@@ -27,12 +27,9 @@ void CollisionHandler::Update()
 
 void CollisionHandler::Cleanup()
 {
-	for (Collider* collider : m_colliders)
+	while (m_colliders.size() > 0)
 	{
-		if (collider)
-		{
-			delete collider;
-		}
+		delete m_colliders[0];
 	}
 
 	m_colliders.clear();

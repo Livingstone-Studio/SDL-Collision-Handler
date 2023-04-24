@@ -150,14 +150,14 @@
     <ClCompile Include="CollisionHandler.cpp" />
     <ClCompile Include="DemoGameObject.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="SquareCollider.cpp" />
+    <ClCompile Include="RectangleCollider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionHandler.h" />
     <ClInclude Include="DemoGameObject.h" />
-    <ClInclude Include="SquareCollider.h" />
+    <ClInclude Include="RectangleCollider.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

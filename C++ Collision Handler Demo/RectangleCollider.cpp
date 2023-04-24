@@ -1,28 +1,38 @@
-#include "SquareCollider.h"
+#include "RectangleCollider.h"
 #include "CircleCollider.h"
 
 #include <iostream>
 
-SquareCollider::SquareCollider(float x, float y, float w, float h, std::function<void()> collisionEvent)
-    : Collider(x,y,SQUARE,collisionEvent),m_size{ w,h }
+RectangleCollider::RectangleCollider(float x, float y, float w, float h, std::function<void()> collisionEvent)
+    : Collider(x,y,RECT,collisionEvent),m_size{ w,h }
 {
 }
 
-SquareCollider::~SquareCollider()
+RectangleCollider::~RectangleCollider()
 {
 }
 
-float SquareCollider::GetW()
+void RectangleCollider::SetW(float w)
+{
+    m_size[0] = w;
+}
+
+float RectangleCollider::GetW()
 {
     return m_size[0];
 }
 
-float SquareCollider::GetH()
+void RectangleCollider::SetH(float h)
+{
+    m_size[1] = h;
+}
+
+float RectangleCollider::GetH()
 {
     return m_size[1];
 }
 
-bool SquareCollider::SquareCheck(SquareCollider* collider)
+bool RectangleCollider::RectangleCheck(RectangleCollider* collider)
 {
     if (!collider) return false;
 
@@ -42,13 +52,16 @@ bool SquareCollider::SquareCheck(SquareCollider* collider)
 	return true;
 }
 
-bool SquareCollider::CircleCheck(CircleCollider* collider)
+bool RectangleCollider::CircleCheck(CircleCollider* collider)
 {
     if (!collider) return false;
 
     float o_pos[2] = { collider->GetX(), collider->GetY() };
 
-    float axis_distance[2] = { abs(m_position[0] - o_pos[0]),abs(m_position[1] - o_pos[1]) };
+    float axis_distance[2] = { abs(o_pos[0] - m_position[0]),abs(o_pos[1] - m_position[1]) };
+
+    float corner_distance_sq = pow(axis_distance[0] - m_size[0] / 2, 2) + pow(axis_distance[1] - m_size[1] / 2, 2);
+    if (corner_distance_sq <= pow(collider->GetRadius(), 2)) { return true; }
 
     if (axis_distance[0] > (m_size[0] / 2 + collider->GetRadius())) { return false; }
     if (axis_distance[1] > (m_size[1] / 2 + collider->GetRadius())) { return false; }

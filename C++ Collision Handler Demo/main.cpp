@@ -7,16 +7,6 @@
 
 using namespace std;
 
-void Test1() 
-{
-	cout << "C1" << endl;
-}
-
-void Test2() 
-{
-	cout << "C2" << endl;
-}
-
 bool InputEvents() 
 {
 	// Local declaration of an sdl event.
@@ -51,25 +41,26 @@ int main(int argc, char* argv[])
 
 	std::vector<DemoGameObject*> demo_gos;
 
-	demo_gos.push_back(new DemoGameObject({ 200,120,100,100 }, 1, 1, new SquareCollider(200, 120, 100, 100, Test1)));
-	demo_gos.push_back(new DemoGameObject({ 700,500,100,100 }, -1, -1, new SquareCollider(700, 500, 100, 100, Test2)));
-
 	// COLLISION USAGE -- START
+	
+	// Horizontal Walls
+	demo_gos.push_back(new DemoGameObject({ 490, 0, 1000, 100 }, 0, 0, Collider::RECT));
+	demo_gos.push_back(new DemoGameObject({ 490, 580, 1000,100 }, 0, 0, Collider::RECT));
 
-	// Add 
+	// Vertical Walls
+	demo_gos.push_back(new DemoGameObject({ 0, 290,100,700 }, 0, 0, Collider::RECT));
+	demo_gos.push_back(new DemoGameObject({ 960, 290, 100,700 }, 0, 0, Collider::RECT));
+	
+	// Moving
+	demo_gos.push_back(new DemoGameObject({ 700, 290, 25, 100 }, -1, 0, Collider::RECT));
+	demo_gos.push_back(new DemoGameObject({ 200,290,100,100 }, 1, 0, Collider::CIRCLE));
 
-	for (DemoGameObject* go : demo_gos)
-	{
-		if (go)
-		{
-			CollisionHandler::Add(go->GetCollider());
-			
-		}
-	}
+	demo_gos.push_back(new DemoGameObject({ 200,100,50,50 }, 0, 1, Collider::RECT));
+	demo_gos.push_back(new DemoGameObject({ 700,100,50,100 }, 0, 1, Collider::CIRCLE));
 
 	while (true) 
 	{
-		if (InputEvents()) break; // NOT APART OF COLLISION SYSTEM - JUST SIMPLE INPUT HANDLING
+		if (InputEvents()) break;
 
 		SDL_RenderClear(renderer);
 
@@ -85,7 +76,7 @@ int main(int argc, char* argv[])
 		CollisionHandler::Update();
 
 		SDL_RenderPresent(renderer);
-		SDL_Delay(50);
+		SDL_Delay(5);
 	}
 
 	CollisionHandler::Cleanup();

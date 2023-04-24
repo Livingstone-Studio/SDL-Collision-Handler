@@ -1,15 +1,19 @@
 #include "Collider.h"
 
-#include "SquareCollider.h"
+#include "CollisionHandler.h"
+
+#include "RectangleCollider.h"
 #include "CircleCollider.h"
 
 Collider::Collider(float x, float y, ColliderShape shape, std::function<void()> collisionEvent)
 	: m_position{ x,y }, m_shape{ shape }, m_collision_event{ collisionEvent }
 {
+	CollisionHandler::Add(this);
 }
 
 Collider::~Collider()
 {
+	CollisionHandler::Remove(this);
 }
 
 void Collider::CheckCollision(std::vector<Collider*> colliders)
@@ -24,6 +28,11 @@ void Collider::CheckCollision(std::vector<Collider*> colliders)
 			}
 		}
 	}
+}
+
+void Collider::SetCollisionEvent(std::function<void()> collisionEvent)
+{
+	m_collision_event = collisionEvent;
 }
 
 void Collider::SetX(float x)
@@ -46,7 +55,7 @@ float Collider::GetY()
 	return m_position[1];
 }
 
-ColliderShape Collider::GetShape()
+Collider::ColliderShape Collider::GetShape()
 {
 	return m_shape;
 }
@@ -60,8 +69,8 @@ bool Collider::IsCollided(Collider* collider)
 {
 	switch (collider->GetShape())
 	{
-	case SQUARE:
-		return SquareCheck(dynamic_cast<SquareCollider*>(collider));
+	case RECT:
+		return RectangleCheck(dynamic_cast<RectangleCollider*>(collider));
 		break;
 	case CIRCLE:
 		return CircleCheck(dynamic_cast<CircleCollider*>(collider));
